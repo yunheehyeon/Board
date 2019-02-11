@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+	
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource" >
+		<property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+		<property name="url" value="jdbc:mysql://18.188.207.204:3306/MY_BOARD?useSSL=false&amp;serverTimezone=Asia/Seoul" />
+		<property name="username" value="scott" />
+		<property name="password" value="tiger" />
+	</bean>
+	
+	<!-- MyBatis SqlSessionFactory 객체 -->
+	<!-- SqlSessionFactoryBean sqlSessionFactory = new SqlSessionFactoryBean(); -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<!-- MyBatis 가 사용하는 DB 관련 설정 파일 위치 정보 -->
+		<property name="configLocation" value="classpath:/mybatis-config.xml" />
+		<!-- MyBatis Framework 가 사용하는 SQL Query String 이 정의된 파일 위치 정보 -->
+		<property name="mapperLocations" value="classpath:/mappers/*.xml"/>
+	</bean>
+	
+	<!-- SqlSession 객체(bean) : SQL Query 실행 기능 -->
+	<!-- SqlSessionTemplate sqlSession = new SqlSessionTemplate(sqlSessionFactory); -->
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	
+	<!-- 멀티파트 리졸버 -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+
+		<!-- 최대업로드 가능한 바이트크기 -->
+		<property name="maxUploadSize" value="1000000000" />
+		<!-- 디스크에 임시 파일을 생성하기 전에 메모리에 보관할수있는 최대 바이트 크기 -->
+		 <property name="maxInMemorySize" value="1000000000" /> 
+		<!-- defaultEncoding -->
+
+		<property name="defaultEncoding" value="utf-8" />
+	</bean>
+	
+	<context:component-scan base-package="edu.spring.myboard.controller"/>
+	<context:component-scan base-package="edu.spring.myboard.service"/>
+	<context:component-scan base-package="edu.spring.myboard.persistence"/>
+	
+</beans>

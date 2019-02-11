@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<!-- MyBatis 프레임워크에서 사용할 환경 설정(DB와 관련된 설정) -->
+	<properties>
+		<!-- 상수 정의 : 테이블 이름, 컬럼 이름 -->
+		<property name="tbl_board" value="TBL_BOARD" />
+		<property name="board.bno" value="BNO" />
+		<property name="board.title" value="TITLE" />
+		<property name="board.content" value="CONTENT" />
+		<property name="board.writer" value="WRITER" />
+		<property name="board.regdate" value="REGDATE" />
+		
+		<property name="tbl_reply" value="TBL_REPLY" />
+		<property name="reply.rno" value="RNO"/>
+		<property name="reply.bno" value="BNO"/>
+		<property name="reply.userid" value="USER_ID"/>
+		<property name="reply.content" value="CONTENT"/>
+		<property name="reply.regdate" value="REGDATE"/>
+		
+		<property name="tbl_file" value="TBL_FILE" />
+		<property name="file.fno" value="FNO"/>
+		<property name="file.bno" value="BNO"/>
+		<property name="file.filepath" value="FILE_PATH"/>
+		<property name="file.name" value="FILE_NAME"/>
+		<property name="file.size" value="FILE_SIZE"/>
+		
+	</properties>
+	
+	<typeAliases>
+		<package name="edu.spring.myboard.domain"/>
+	</typeAliases>
+	
+</configuration>
