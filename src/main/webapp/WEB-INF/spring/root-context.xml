@@ -44,7 +44,6 @@
 		<property name="defaultEncoding" value="utf-8" />
 	</bean>
 	
-	<context:component-scan base-package="edu.spring.myboard.controller"/>
 	<context:component-scan base-package="edu.spring.myboard.service"/>
 	<context:component-scan base-package="edu.spring.myboard.persistence"/>
 	

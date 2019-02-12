@@ -22,8 +22,8 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<context:component-scan base-package="edu.spring.myboard.persistence" />
-	
+	<context:component-scan base-package="edu.spring.myboard.controller"/>
+		
 	
 	
 </beans:beans>

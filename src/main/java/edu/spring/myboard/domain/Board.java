@@ -4,16 +4,13 @@ import java.util.Date;
 
 public class Board {
 	private int bno;
-	private int content;
+	private String title;
+	private String writer;
+	private String content;
 	private Date regDate;
+	private int fileCheck;
 	
 	public Board() {
-	}
-
-	public Board(int bno, int content, Date regDate) {
-		this.bno = bno;
-		this.content = content;
-		this.regDate = regDate;
 	}
 
 	public int getBno() {
@@ -24,11 +21,27 @@ public class Board {
 		this.bno = bno;
 	}
 
-	public int getContent() {
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getWriter() {
+		return writer;
+	}
+
+	public void setWriter(String writer) {
+		this.writer = writer;
+	}
+
+	public String getContent() {
 		return content;
 	}
 
-	public void setContent(int content) {
+	public void setContent(String content) {
 		this.content = content;
 	}
 
@@ -38,6 +51,20 @@ public class Board {
 
 	public void setRegDate(Date regDate) {
 		this.regDate = regDate;
+	}
+
+	public int getFileCheck() {
+		return fileCheck;
+	}
+
+	public void setFileCheck(int fileCheck) {
+		this.fileCheck = fileCheck;
+	}
+
+	@Override
+	public String toString() {
+		return "Board [bno=" + bno + ", title=" + title + ", writer=" + writer + ", content=" + content + ", regDate="
+				+ regDate + ", fileCheck=" + fileCheck + "]";
 	}
 	
 }

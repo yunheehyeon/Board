@@ -12,7 +12,9 @@ public class BoardController {
 	public String displayBoard() {
 		return "board";
 	}
-	
-	
+	@RequestMapping(value = "regist", method = RequestMethod.GET)
+	public String registBoard() {
+		return "registBoard";
+	}
 	
 }

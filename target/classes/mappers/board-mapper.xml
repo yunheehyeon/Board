@@ -18,8 +18,20 @@
 	
 	<insert id="createBoard">
 		INSERT INTO ${tbl_board}
-		(${board.title}, ${board.writer}, ${board.content})
-		VALUES (#{title}, #{writer}, #{content})
+		(${board.title}, ${board.writer}, ${board.content}, ${board.check})
+		VALUES (#{title}, #{writer}, #{content}, #{fileCheck})
 	</insert>
+	
+	<select id="findBno" resultType="Board">
+		SELECT * FROM ${tbl_board}
+		WHERE ${board.check} = 2
+	</select>
+	
+	<update id="updateCheck">
+		UPDATE ${tbl_board}
+		SET
+		${board.check} = #{fileCheck}
+		WHERE ${board.bno} = #{bno}
+	</update>
 	
 </mapper>
