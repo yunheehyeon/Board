@@ -1,6 +1,7 @@
 package edu.spring.myboard.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,6 +32,15 @@ public class BoardServiceImple implements BoardService {
 			}
 		}
 		return result;
+	}
+
+	public List<Board> selectPage(int page) {
+		return boardDao.selectPage(page);
+	}
+
+	public int selectBoardListCnt() {
+		
+		return boardDao.selectBoardCount();
 	}
 
 }

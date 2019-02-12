@@ -1,5 +1,7 @@
 package edu.spring.myboard.persistence;
 
+import java.util.List;
+
 import edu.spring.myboard.domain.Board;
 
 public interface BoardDao {
@@ -8,4 +10,6 @@ public interface BoardDao {
 	Board findBno();
 	int updateBoardCheck(Board board);
 	
+	List<Board> selectPage(int page);
+	int selectBoardCount();
 }
