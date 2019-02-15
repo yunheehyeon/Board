@@ -31,7 +31,7 @@
 		      				<th scope="col" style="width: 15%;">#</th>
 		      				<th scope="col">제목</th>
 		      				<th scope="col" style="width: 15%;">작성자</th>
-		      				<th scope="col" style="width: 20%;">작성 시간</th>
+		      				<th scope="col" style="width: 20%;">작성일</th>
 	    				</tr>
   					</thead>
 			  	
@@ -81,7 +81,7 @@
 <script  id="boardItem" type="text/x-handlebars-template">
 <tr>
 	<th scope="row">{{bno}}</th>
-	<td>{{title}}</td>
+	<td><a href="/myboard/board/boardDetail?bno={{bno}}">{{title}}<a/></td>
 	<td>{{writer}}</td>
 	<td>{{regDate}}</td>
 </tr>

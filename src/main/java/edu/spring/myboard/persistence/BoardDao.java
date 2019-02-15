@@ -12,4 +12,6 @@ public interface BoardDao {
 	
 	List<Board> selectPage(int page);
 	int selectBoardCount();
+
+	Board selectBno(int bno);
 }

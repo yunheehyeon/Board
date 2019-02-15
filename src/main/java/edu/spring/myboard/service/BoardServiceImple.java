@@ -43,4 +43,8 @@ public class BoardServiceImple implements BoardService {
 		return boardDao.selectBoardCount();
 	}
 
+	public Board selectBno(int bno) {
+		return boardDao.selectBno(bno);
+	}
+
 }

@@ -17,7 +17,7 @@
 		<property name="tbl_reply" value="TBL_REPLY" />
 		<property name="reply.rno" value="RNO"/>
 		<property name="reply.bno" value="BNO"/>
-		<property name="reply.userid" value="USER_ID"/>
+		<property name="reply.writer" value="WRITER"/>
 		<property name="reply.content" value="CONTENT"/>
 		<property name="reply.regdate" value="REGDATE"/>
 		

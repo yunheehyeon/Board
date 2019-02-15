@@ -15,7 +15,7 @@
 		FROM ${tbl_board}
 	</select>
 	
-	<select id="selectOne" resultType="Board">
+	<select id="selectBno" resultType="Board">
 		SELECT * FROM ${tbl_board}
 		WHERE ${board.bno} = #{bno}
 	</select>

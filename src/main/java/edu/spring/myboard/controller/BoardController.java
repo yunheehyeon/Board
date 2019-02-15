@@ -44,11 +44,20 @@ public class BoardController {
 		
 	}
 	
+	@RequestMapping(value = "boardDetail", method = RequestMethod.GET)
+	public String boardDtail(int bno, Model model) {
+		
+		Board item = boardService.selectBno(bno);
+		model.addAttribute("item", item);
+		
+		return "boardDetail";
+	}
+	
 	@RequestMapping(value = "regist", method = RequestMethod.GET)
 	public String registBoard() {
 		return "registBoard";
 	}
-	
+		
 	
 	
 }

@@ -1,0 +1,165 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+
+	<div class="container" style="margin-right: 0px">
+		<div class="row">
+		
+			<div class="col-sm-7">
+				<h1>게시물 상세 페이지</h1>
+			
+				<form id="uploadForm" method="post" enctype="multipart/form-data">
+					<input class="form-control" type="text" name="title" value="${item.title}" readonly />
+					<span>작성자: ${item.writer}</span>
+					<span style="float: right;">
+					<fmt:formatDate value="${item.regDate}" pattern="yyyy년  MM월  dd일"/>
+					</span>
+					<textarea class="form-control" rows="10" cols="50" readonly>${item.content}</textarea><br/>	
+				</form>
+				<div>첨부파일</div>
+				<div id="fileList" style="overflow-y: scroll; height:150px; border: solid 1px #f1f1f1; margin-top: 8px; margin-bottom: 8px;">
+				</div>
+				
+				<h5>댓글 쓰기</h5>	
+				
+				<table class="table">
+ 					<thead>
+	 					<tr>
+		      				<th scope="col" style="width: 20%; padding: 0px; padding-right: 4px;">
+		      				<input type="text" class="form-control required" id="writer" placeholder="이름"/>	
+		      				</th>
+		      				<th scope="col" style="padding: 0px; padding-right: 4px;">
+		      				<input type="text" class="form-control required" id="content" placeholder="내용"/>
+		      				</th>				
+							<th scope="col" style="padding: 0px;">
+		      				<input type="button" id="replyInsert" class = "btn btn-default" style="width:100%; float: right;" value="등록"> 
+		      				</th>
+	    				</tr>
+  					</thead>
+  						  
+				</table>
+						
+			</div>
+			
+			<div class="col-sm-5">
+				<h1>댓글</h1>	
+				
+  				<div id="replyList">
+					    
+				  </div>
+  						
+			</div>
+		</div>
+	</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.min.js"></script>
+<script id="reply-template" type="text/x-handlebars-template">
+
+<div>
+	<span>{{writer}}</span><span> 등록일: {{regDate}}</span>
+</div>
+<input type="text" class="form-control" value="{{rtext}}" placeholder="내용" readonly />
+
+</script>
+
+
+<script>
+$(document).ready(function(){
+	
+	var bno = ${item.bno};
+	getAllReplies(bno);
+	
+	$('#replyInsert').click(function(){
+		
+		if(check_required_inputs()){	
+			
+			var writer = $('#writer').val();
+			var content = $('#content').val();
+			
+			var bno = ${item.bno};
+			
+			$.ajax({
+				type: 'post',
+				url: '/myboard/replyRest/insert',
+				headers: {
+					'Content-Type': 'application/json',
+					'X-HTTP-Method-Override': 'post'
+				},
+				data: JSON.stringify({
+					'bno': bno,
+					'writer': writer,
+					'content': content
+				}),
+				success: function(result) {
+					alert('댓글 추가 결과: ' + result);
+					$('#writer').val("");
+					$('#content').val("");
+					getAllReplies(bno);
+				}		
+			});
+			
+		}
+		
+	});
+	
+	function check_required_inputs() {
+		var result = true;
+		
+		if( $('#writer').val() == "" ){
+			alert('이름을 작성하세요');
+			result = false;
+		}
+		if( $('#content').val() == "" ){
+			alert('내용을 작성하세요');
+			result = false;
+		}
+		
+		return result;
+		
+	};
+	
+	var source = $('#reply-template').html();
+	var template = Handlebars.compile(source);
+	
+	function getAllReplies(bno) {
+		
+		$.getJSON('/myboard/replyRest/selectAll/' + bno, function(data) {
+			$('#replyList').empty(); 
+			
+			$(data).each(function() {
+				var date = new Date(this.regDate);
+				var dateString = date.toLocaleDateString()
+						+ ' ' + date.toLocaleTimeString();
+			
+				var content = {
+					writer: this.writer,
+					regDate: dateString,
+					rtext: this.content
+				}
+				
+				var replyItem = template(content);
+				$('#replyList').append(replyItem);
+
+			});
+		
+		});
+	}
+	
+});
+</script>
+
+</body>
+</html>
