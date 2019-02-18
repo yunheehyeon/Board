@@ -14,6 +14,7 @@ import edu.spring.myboard.persistence.BoardDao;
 public class BoardServiceImple implements BoardService {
 
 	@Autowired BoardDao boardDao;
+	@Autowired FileService fileService;
 	
 	public int insert(Board board, ArrayList<File> fileList) {
 		
@@ -23,11 +24,11 @@ public class BoardServiceImple implements BoardService {
 			System.out.println(temp.toString());
 			if(fileList.size()>0) {
 				temp.setFileCheck(1);
-				System.out.println(temp.toString());
 				boardDao.updateBoardCheck(temp);
+								
+				fileService.createFile(fileList, temp.getBno());
 			}else {
 				temp.setFileCheck(0);
-				System.out.println(temp.toString());
 				boardDao.updateBoardCheck(temp);
 			}
 		}

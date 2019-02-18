@@ -24,9 +24,9 @@
 		<property name="tbl_file" value="TBL_FILE" />
 		<property name="file.fno" value="FNO"/>
 		<property name="file.bno" value="BNO"/>
-		<property name="file.filepath" value="FILE_PATH"/>
-		<property name="file.name" value="FILE_NAME"/>
-		<property name="file.size" value="FILE_SIZE"/>
+		<property name="file.filepath" value="FILEPATH"/>
+		<property name="file.filename" value="FILENAME"/>
+		<property name="file.filesize" value="FILESIZE"/>
 		
 	</properties>
 	

@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.google.gson.Gson;
 
 import edu.spring.myboard.domain.Board;
+import edu.spring.myboard.domain.File;
 import edu.spring.myboard.service.BoardService;
+import edu.spring.myboard.service.FileService;
 
 
 @Controller
@@ -22,6 +24,7 @@ import edu.spring.myboard.service.BoardService;
 public class BoardController {
 
 	@Autowired private BoardService boardService;
+	@Autowired private FileService fileService;
 		
 	@RequestMapping(method = RequestMethod.GET)
 	public String searchPage(Model model, @RequestParam(defaultValue="1") int curPage) {
@@ -45,10 +48,23 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value = "boardDetail", method = RequestMethod.GET)
-	public String boardDtail(int bno, Model model) {
+	public String boardDtail(int bno, Model model, @RequestParam(defaultValue="1") int curPage) {
+		
+		int listCnt = boardService.selectBoardListCnt();  
+	    Pagination pagination = new Pagination(listCnt, curPage);
+	    model.addAttribute("pagination", pagination);
 		
 		Board item = boardService.selectBno(bno);
 		model.addAttribute("item", item);
+		
+		List<File> fileList = fileService.selectFileByBno(bno);
+		for(File f : fileList) {
+			System.out.println("파일 정보 확인:" + f.toString());			
+		}
+		
+		Gson gson = new Gson();
+		String fileJson = gson.toJson(fileList);
+		model.addAttribute("fileList", fileJson);
 		
 		return "boardDetail";
 	}

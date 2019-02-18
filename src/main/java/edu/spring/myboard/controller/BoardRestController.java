@@ -17,14 +17,16 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import edu.spring.myboard.domain.Board;
 import edu.spring.myboard.domain.File;
 import edu.spring.myboard.service.BoardService;
+import edu.spring.myboard.service.FileService;
 import edu.spring.myboard.service.FileUploadService;
 
 @RestController
 @RequestMapping(value = "boardRest")
 public class BoardRestController {
 	
-	@Autowired private FileUploadService fileService;
+	@Autowired private FileUploadService fileUploadService;
 	@Autowired private BoardService boardService;
+	@Autowired private FileService fileService;
 	
 	@RequestMapping(value = "insert", method = RequestMethod.POST)
 	public ResponseEntity<Integer> updateReply(MultipartHttpServletRequest req) {
@@ -37,17 +39,12 @@ public class BoardRestController {
 		ArrayList<File> fileList = new ArrayList<File>();
 		
 		for(MultipartFile m : mf) {		
-			String path = fileService.restore(m);
+			String path = fileUploadService.restore(m);
 			File f = new File();
+			
 			f.setFileName(m.getOriginalFilename());
 			f.setFilePath(path);
-			
-			try {
-				f.setFileSize(m.getBytes().toString());
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			f.setFileSize(Long.toString(m.getSize()));
 			
 			fileList.add(f);
 		}

@@ -81,7 +81,7 @@
 <script  id="boardItem" type="text/x-handlebars-template">
 <tr>
 	<th scope="row">{{bno}}</th>
-	<td><a href="/myboard/board/boardDetail?bno={{bno}}">{{title}}<a/></td>
+	<td><a href="/myboard/board/boardDetail?bno={{bno}}&curPage={{curPage}}">{{title}}<a/></td>
 	<td>{{writer}}</td>
 	<td>{{regDate}}</td>
 </tr>
@@ -103,7 +103,8 @@ $(document).ready(function(){
 			bno: this.bno,
 			title: this.title,
 			writer: this.writer,
-			regDate: dateString
+			regDate: dateString,
+			curPage: ${pagination.curPage}
 		};
 		
 		var boardItem = boardItemTemplate(content);

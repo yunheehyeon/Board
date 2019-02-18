@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.spring.myboard.mappers.FileMapper">
+	
+	<select id="selectByBno" resultType="File">
+		SELECT * FROM ${tbl_file}
+		where ${file.bno} = #{bno}
+		ORDER BY ${file.fno} DESC
+	</select>
+
+	<insert id="createFile">
+		INSERT INTO ${tbl_file}
+		(${file.bno}, ${file.filename}, ${file.filepath}, ${file.filesize})
+		VALUES (#{bno}, #{fileName}, #{filePath}, #{fileSize})
+	</insert>
+
+</mapper>

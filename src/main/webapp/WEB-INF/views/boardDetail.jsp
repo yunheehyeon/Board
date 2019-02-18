@@ -15,7 +15,7 @@
 </head>
 <body>
 
-	<div class="container" style="margin-right: 0px">
+	<div class="container">
 		<div class="row">
 		
 			<div class="col-sm-7">
@@ -27,7 +27,7 @@
 					<span style="float: right;">
 					<fmt:formatDate value="${item.regDate}" pattern="yyyy년  MM월  dd일"/>
 					</span>
-					<textarea class="form-control" rows="10" cols="50" readonly>${item.content}</textarea><br/>	
+					<textarea class="form-control" rows="10" cols="50" style="margin-top: 10px;" readonly>${item.content}</textarea><br/>	
 				</form>
 				<div>첨부파일</div>
 				<div id="fileList" style="overflow-y: scroll; height:150px; border: solid 1px #f1f1f1; margin-top: 8px; margin-bottom: 8px;">
@@ -51,7 +51,7 @@
   					</thead>
   						  
 				</table>
-						
+				<a href="#" onClick="fn_paging('${pagination.curPage }')">[목록]</a> 	
 			</div>
 			
 			<div class="col-sm-5">
@@ -69,12 +69,20 @@
 <script id="reply-template" type="text/x-handlebars-template">
 
 <div>
-	<span>{{writer}}</span><span> 등록일: {{regDate}}</span>
+	<span>{{writer}}</span><span style="float:right;">{{regDate}}</span>
 </div>
 <input type="text" class="form-control" value="{{rtext}}" placeholder="내용" readonly />
 
 </script>
 
+<script id="file-template" type="text/x-handlebars-template">
+
+<div class="clearfix" style="padding: 8px; border-bottom: solid 1px #f1f1f1;">
+<span class="btn" style="padding: 2px;">{{fileName}}</span>
+<a href="/myboard/{{filePath}}" class = "btn btn-default"  style="float:right; padding: 2px;" download="{{fileName}}">내려받기</a>
+<span class="btn" style="float:right; padding: 2px;">파일 크기: {{fileSize}} 바이트</span>
+</div>
+</script>
 
 <script>
 $(document).ready(function(){
@@ -158,7 +166,30 @@ $(document).ready(function(){
 		});
 	}
 	
+	var fileSource = $('#file-template').html();
+	var fileTemplate = Handlebars.compile(fileSource);
+	var fileList = ${fileList};
+	
+	$(fileList).each(function(){
+		
+		var content = {
+				fileName: this.fileName,
+				fileSize: this.fileSize,
+				filePath: this.filePath
+			}
+			
+			var fileItem = fileTemplate(content);
+			$('#fileList').append(fileItem);
+
+		
+	});
+	
+	
 });
+
+function fn_paging(page){
+	window.location.href = '/myboard/board?curPage='+page;
+}
 </script>
 
 </body>

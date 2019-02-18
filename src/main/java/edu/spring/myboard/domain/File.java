@@ -57,6 +57,12 @@ public class File {
 	public void setFileSize(String fileSize) {
 		this.fileSize = fileSize;
 	}
+
+	@Override
+	public String toString() {
+		return "File [fno=" + fno + ", bno=" + bno + ", filePath=" + filePath + ", fileName=" + fileName + ", fileSize="
+				+ fileSize + "]";
+	}
 		
 	
 }
