@@ -10,7 +10,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-
 </head>
 <body>
 
@@ -21,11 +20,11 @@
 			
 			<h1>게시물 작성</h1>
 			
-			<form id="uploadForm" method="post" enctype="multipart/form-data">
+			<form id="uploadForm" method="post" class="clearfix" enctype="multipart/form-data">
 				<input id="title" class="form-control" type="text" name="title" placeholder="제목"/><br/>
 				<input id="name" class="form-control" type="text" name="writer" placeholder="이름"><br/>
 				<textarea id="content" class="form-control" rows="10" cols="50" placeholder="내용작성"></textarea><br/>
-				<label class = "addFile btn btn-default" for="files">파일 추가</label>
+				<label class = "addFile btn btn-default" for="files" style="float: left;">파일 추가</label>
 				<input id="files" type="file" class="files" style="display: none" />	
 			</form>
 
@@ -33,7 +32,7 @@
 			</div>
 			
 			<a class= "btn btn-default" href="/myboard/board" style="float:right;">취소</a>
-			<a id="boardInsertBtn" class= "btn btn-default" style="float:right;">등록</a>
+			<button id="boardInsertBtn" data-check = "0" class= "btn btn-default" style="float:right;">등록</button>
 			
 			
 			</div>
@@ -41,10 +40,10 @@
 		</div>
 	</div>
 
-	
-
 <script>
 $(document).ready(function(){
+	
+	$('#Progress_Loading').hide();
 	
 	var fileBuffer = [];
 	
@@ -85,15 +84,36 @@ $(document).ready(function(){
 	});
 	
 	$(document).on("click",'#boardInsertBtn',function() {
-		
-		var title = $("#title").val();
-		var name = $("#name").val();
-		var content = $("#content").val();
-		
-		
-		boardUpload(title, name, content);
-	
+		var sendCheck = $('#boardInsertBtn').data('check');
+				
+		if(check_required_inputs() && sendCheck == '0'){
+			var title = $('#title').val();
+			var name = $('#name').val();
+			var content = $('#content').val();
+			$('#boardInsertBtn').data('check', '1');
+			boardUpload(title, name, content);
+		}
 	});
+	
+	function check_required_inputs() {
+		var result = true;
+		
+		if( $('#title').val() == "" ){
+			alert('제목을 작성하세요');
+			return false;
+		}
+		if( $('#name').val() == "" ){
+			alert('이름을 작성하세요');
+			return false;
+		}
+		if( $('#content').val() == "" ){
+			alert('내용을 작성하세요');
+			return false;
+		}
+		
+		return result;
+		
+	};
 	
 	function boardUpload(title, name, content) {
 		
@@ -122,8 +142,7 @@ $(document).ready(function(){
 			},
 			error : function(error) {
 				alert("파일 업로드에 실패하였습니다.");
-				console.log(error);
-				console.log(error.status);
+				$('#boardInsertBtn').data('check', '0');
 			}
 		});
 			

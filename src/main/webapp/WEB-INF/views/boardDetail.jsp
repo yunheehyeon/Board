@@ -128,11 +128,11 @@ $(document).ready(function(){
 		
 		if( $('#writer').val() == "" ){
 			alert('이름을 작성하세요');
-			result = false;
+			return false;
 		}
 		if( $('#content').val() == "" ){
 			alert('내용을 작성하세요');
-			result = false;
+			return false;
 		}
 		
 		return result;

@@ -81,7 +81,7 @@
 <script  id="boardItem" type="text/x-handlebars-template">
 <tr>
 	<th scope="row">{{bno}}</th>
-	<td><a href="/myboard/board/boardDetail?bno={{bno}}&curPage={{curPage}}">{{title}}<a/></td>
+	<td><a href="/myboard/board/boardDetail?bno={{bno}}&curPage={{curPage}}">{{title}}{{fileCheck}}<a/></td>
 	<td>{{writer}}</td>
 	<td>{{regDate}}</td>
 </tr>
@@ -98,13 +98,18 @@ $(document).ready(function(){
 	$(boardList).each(function(){
 		var date = new Date(this.regDate);
 		var dateString = date.toLocaleDateString();
+		var file;
+		if(this.fileCheck == 1 ){
+			file = '파일 있음';
+		}
 		
 		var content = {
 			bno: this.bno,
 			title: this.title,
 			writer: this.writer,
 			regDate: dateString,
-			curPage: ${pagination.curPage}
+			curPage: ${pagination.curPage},
+			fileCheck: file
 		};
 		
 		var boardItem = boardItemTemplate(content);
