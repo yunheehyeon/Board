@@ -12,7 +12,7 @@
 		<property name="board.content" value="CONTENT" />
 		<property name="board.writer" value="WRITER" />
 		<property name="board.regdate" value="REGDATE" />
-		<property name="board.check" value="FILE_CHECK" />
+		<property name="board.check" value="FILECHECK" />
 		
 		<property name="tbl_reply" value="TBL_REPLY" />
 		<property name="reply.rno" value="RNO"/>

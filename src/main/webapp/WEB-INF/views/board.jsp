@@ -81,7 +81,7 @@
 <script  id="boardItem" type="text/x-handlebars-template">
 <tr>
 	<th scope="row">{{bno}}</th>
-	<td><a href="/myboard/board/boardDetail?bno={{bno}}&curPage={{curPage}}">{{title}}{{fileCheck}}<a/></td>
+	<td><a href="/myboard/board/boardDetail?bno={{bno}}&curPage={{curPage}}">{{title}}<span style="font-size: xx-small;">{{fileCheck}}<span><a/></td>
 	<td>{{writer}}</td>
 	<td>{{regDate}}</td>
 </tr>
@@ -100,7 +100,7 @@ $(document).ready(function(){
 		var dateString = date.toLocaleDateString();
 		var file;
 		if(this.fileCheck == 1 ){
-			file = '파일 있음';
+			file = '[파일]';
 		}
 		
 		var content = {
