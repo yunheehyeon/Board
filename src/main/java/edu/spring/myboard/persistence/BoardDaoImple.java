@@ -47,4 +47,10 @@ public class BoardDaoImple implements BoardDao {
 		return session.selectOne(BOARD_MAPPER+".selectBno", board);
 	}
 
+	public int deleteBoard(int bno) {
+		Board board = new Board();
+		board.setBno(bno);
+		return session.delete(BOARD_MAPPER+".deleteBoard", board);
+	}
+
 }

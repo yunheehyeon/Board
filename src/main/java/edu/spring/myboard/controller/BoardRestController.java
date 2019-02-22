@@ -1,13 +1,12 @@
 package edu.spring.myboard.controller;
 
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,7 +16,6 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import edu.spring.myboard.domain.Board;
 import edu.spring.myboard.domain.File;
 import edu.spring.myboard.service.BoardService;
-import edu.spring.myboard.service.FileService;
 import edu.spring.myboard.service.FileUploadService;
 
 @RestController
@@ -26,10 +24,9 @@ public class BoardRestController {
 	
 	@Autowired private FileUploadService fileUploadService;
 	@Autowired private BoardService boardService;
-	@Autowired private FileService fileService;
 	
 	@RequestMapping(value = "insert", method = RequestMethod.POST)
-	public ResponseEntity<Integer> updateReply(MultipartHttpServletRequest req) {
+	public ResponseEntity<Integer> insertBoard(MultipartHttpServletRequest req) {
 
 		String title = req.getParameter("title");
 		String writer = req.getParameter("name");
@@ -66,4 +63,20 @@ public class BoardRestController {
 		return entity;
 	}
 	
+	@RequestMapping(value = "delete/{bno}", method = RequestMethod.DELETE)
+	public ResponseEntity<Integer> deleteBoard(
+			@PathVariable(name="bno") int bno) {
+		
+		
+		int result = boardService.delectboard(bno);
+		
+		ResponseEntity<Integer> entity = null;
+		if (result == 1) {
+			entity = new ResponseEntity<Integer>(result, HttpStatus.OK);
+		} else {
+			entity = new ResponseEntity<Integer>(result, HttpStatus.BAD_REQUEST);
+		}
+		
+		return entity;
+	}
 }

@@ -14,4 +14,6 @@ public interface BoardDao {
 	int selectBoardCount();
 
 	Board selectBno(int bno);
+	
+	int deleteBoard(int bno);
 }

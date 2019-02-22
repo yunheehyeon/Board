@@ -184,6 +184,27 @@ $(document).ready(function(){
 		
 	});
 	
+	$('#deleteBoard').click(function() {
+		var bno = $(this).prevAll('#bno').val();
+	
+		if (result == true) {
+			$.ajax({
+				type: 'delete',
+				url: '/myboard/boardRest/' + bno,
+				headers: {
+					'Content-Type': 'application/json',
+					'X-HTTP-Method-Override': 'delete'
+				},
+				success: function(data) {
+					alert('삭제 성공');
+					fn_paging('${pagination.curPage}');
+				},
+				erorr: function(date){
+					alert('삭제 실패');
+				}
+			});
+		} // end if
+	});
 	
 });
 

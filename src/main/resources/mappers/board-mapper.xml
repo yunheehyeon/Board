@@ -38,4 +38,8 @@
 		WHERE ${board.bno} = #{bno}
 	</update>
 	
+	<delete id="deleteBoard">
+		DELETE FROM ${tbl_board} WHERE ${board.bno} = #{bno}
+	</delete>
+	
 </mapper>

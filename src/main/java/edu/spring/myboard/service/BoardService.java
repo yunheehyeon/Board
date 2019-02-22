@@ -12,4 +12,6 @@ public interface BoardService {
 	List<Board> selectPage(int page);
 	int selectBoardListCnt();
 	Board selectBno(int bno);
+	int delectboard(int bno);
+	
 }

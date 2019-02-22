@@ -74,6 +74,4 @@ public class BoardController {
 		return "registBoard";
 	}
 		
-	
-	
 }

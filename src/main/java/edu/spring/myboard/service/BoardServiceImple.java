@@ -48,4 +48,8 @@ public class BoardServiceImple implements BoardService {
 		return boardDao.selectBno(bno);
 	}
 
+	public int delectboard(int bno) {
+		return boardDao.deleteBoard(bno);
+	}
+
 }
