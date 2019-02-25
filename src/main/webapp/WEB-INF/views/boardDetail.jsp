@@ -33,6 +33,8 @@
 				<div id="fileList" style="overflow-y: scroll; height:150px; border: solid 1px #f1f1f1; margin-top: 8px; margin-bottom: 8px;">
 				</div>
 				
+				<a id="deleteBoard" data-bno="${item.bno}" class="btn btn-default" >게시물삭제</a>
+				
 				<h5>댓글 쓰기</h5>	
 				
 				<table class="table">
@@ -185,12 +187,14 @@ $(document).ready(function(){
 	});
 	
 	$('#deleteBoard').click(function() {
-		var bno = $(this).prevAll('#bno').val();
+		var bno = $(this).data("bno");
 	
+		var result = confirm("게시글 삭제 확인");
+		
 		if (result == true) {
 			$.ajax({
 				type: 'delete',
-				url: '/myboard/boardRest/' + bno,
+				url: '/myboard/boardRest/delete/' + bno,
 				headers: {
 					'Content-Type': 'application/json',
 					'X-HTTP-Method-Override': 'delete'
