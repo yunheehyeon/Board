@@ -71,14 +71,15 @@
 <script id="reply-template" type="text/x-handlebars-template">
 
 <div>
-	<span>{{writer}}</span><span style="float:right;">{{regDate}}</span>
+	<span>{{writer}}</span>
+	<span class="btn btn-default" style="padding: 3px">삭제</span>
+	<span style="float:right;">{{regDate}}</span>
 </div>
 <input type="text" class="form-control" value="{{rtext}}" placeholder="내용" readonly />
 
 </script>
 
 <script id="file-template" type="text/x-handlebars-template">
-
 <div class="clearfix" style="padding: 8px; border-bottom: solid 1px #f1f1f1;">
 <span class="btn" style="padding: 2px;">{{fileName}}</span>
 <a href="/myboard/{{filePath}}" class = "btn btn-default"  style="float:right; padding: 2px;" download="{{fileName}}">내려받기</a>
