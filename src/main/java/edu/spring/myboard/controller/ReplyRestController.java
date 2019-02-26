@@ -58,4 +58,20 @@ public class ReplyRestController {
 		return entity;
 	}
 	
+	@RequestMapping(value = "{rno}", method = RequestMethod.DELETE)
+	public ResponseEntity<Integer> deleteReply(@PathVariable(name="rno") int rno) {
+
+		int result = replyService.deleteReply(rno);
+		
+		ResponseEntity<Integer> entity = null;
+		if (result != 0) {
+			entity = new ResponseEntity<Integer>(result, HttpStatus.OK);
+		} else {
+			entity = new ResponseEntity<Integer>(result, HttpStatus.BAD_REQUEST);
+		}
+		
+		return entity;
+	}
+	
+	
 }

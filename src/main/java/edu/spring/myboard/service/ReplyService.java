@@ -8,5 +8,5 @@ public interface ReplyService {
 
 	List<Reply> selectByBno(int bno);
 	int createReply(Reply reply);
-	
+	int deleteReply(int rno);
 }

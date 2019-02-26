@@ -26,7 +26,9 @@ public class ReplyDaoImple implements ReplyDao {
 	}
 
 	public int deleteReply(int rno) {
-		return 0;
+		Reply reply = new Reply();
+		reply.setRno(rno);
+		return session.delete(REPLY_MAPPER+".deleteReply", reply);
 	}
 
 }

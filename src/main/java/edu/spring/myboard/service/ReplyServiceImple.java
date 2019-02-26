@@ -18,8 +18,11 @@ public class ReplyServiceImple implements ReplyService {
 	}
 
 	public int createReply(Reply reply) {
-		// TODO Auto-generated method stub
 		return replyDao.createReply(reply);
+	}
+
+	public int deleteReply(int rno) {
+		return replyDao.deleteReply(rno);
 	}
 
 }

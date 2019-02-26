@@ -16,4 +16,8 @@
 		VALUES (#{bno}, #{content}, #{writer})
 	</insert>
 	
+	<delete id="deleteReply">
+		DELETE FROM ${tbl_reply} WHERE ${reply.rno} = #{rno}
+	</delete>
+	
 </mapper>

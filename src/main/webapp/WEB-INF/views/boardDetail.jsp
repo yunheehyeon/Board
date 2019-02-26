@@ -69,11 +69,10 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.min.js"></script>
 <script id="reply-template" type="text/x-handlebars-template">
-
 <div>
-	<span>{{writer}}</span>
-	<span class="btn btn-default" style="padding: 3px">삭제</span>
-	<span style="float:right;">{{regDate}}</span>
+	<span>{{writer}} | </span>
+	<span style="font-size: xx-small;">{{regDate}} | </span>
+	<span class="deleteReply" data-rno="{{rno}}" style="font-size: xx-small; cursor:pointer; ">삭제</span>
 </div>
 <input type="text" class="form-control" value="{{rtext}}" placeholder="내용" readonly />
 
@@ -158,7 +157,8 @@ $(document).ready(function(){
 				var content = {
 					writer: this.writer,
 					regDate: dateString,
-					rtext: this.content
+					rtext: this.content,
+					rno: this.rno
 				}
 				
 				var replyItem = template(content);
@@ -210,6 +210,31 @@ $(document).ready(function(){
 			});
 		} // end if
 	});
+	
+	$(document).on("click", '.deleteReply', function() {
+		var rno = $(this).data("rno");
+	
+		var result = confirm("댓글 삭제 확인");
+		
+		if (result == true) {
+			$.ajax({
+				type: 'delete',
+				url: '/myboard/replyRest/' + rno,
+				headers: {
+					'Content-Type': 'application/json',
+					'X-HTTP-Method-Override': 'delete'
+				},
+				success: function(data) {
+					alert('삭제 성공');
+					getAllReplies('${item.bno}');
+				},
+				erorr: function(date){
+					alert('삭제 실패');
+				}
+			});
+		} // end if
+	});
+	
 	
 });
 
